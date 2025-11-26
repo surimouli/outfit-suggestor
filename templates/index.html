@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Outfit Suggestor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>Outfit Suggestor 💖</h1>
+      <p>Tell me the vibe and I’ll pick your outfit.</p>
+    </header>
+
+    <main class="content">
+      <section class="card">
+        <h2>Set your vibe</h2>
+        <form method="POST" class="form">
+          <!-- Occasion -->
+          <div class="form-group">
+            <label class="label">Occasion</label>
+            <div class="options">
+              <label>
+                <input type="radio" name="occasion" value="casual"
+                  {% if form.occasion == 'casual' %}checked{% endif %}>
+                Casual
+              </label>
+              <label>
+                <input type="radio" name="occasion" value="work"
+                  {% if form.occasion == 'work' %}checked{% endif %}>
+                Work / Class
+              </label>
+              <label>
+                <input type="radio" name="occasion" value="party"
+                  {% if form.occasion == 'party' %}checked{% endif %}>
+                Party / Night out
+              </label>
+              <label>
+                <input type="radio" name="occasion" value="home"
+                  {% if form.occasion == 'home' %}checked{% endif %}>
+                Staying home
+              </label>
+            </div>
+          </div>
+
+          <!-- Weather -->
+          <div class="form-group">
+            <label class="label">Weather</label>
+            <div class="options">
+              <label>
+                <input type="radio" name="weather" value="cold"
+                  {% if form.weather == 'cold' %}checked{% endif %}>
+                Cold 🥶
+              </label>
+              <label>
+                <input type="radio" name="weather" value="mild"
+                  {% if form.weather == 'mild' %}checked{% endif %}>
+                Mild 🌤
+              </label>
+              <label>
+                <input type="radio" name="weather" value="warm"
+                  {% if form.weather == 'warm' %}checked{% endif %}>
+                Warm / Hot ☀️
+              </label>
+            </div>
+          </div>
+
+          <!-- Color -->
+          <div class="form-group">
+            <label for="color" class="label">Color vibe (optional)</label>
+            <input
+              type="text"
+              id="color"
+              name="color"
+              placeholder="pink, black, beige..."
+              value="{{ form.color }}"
+            />
+            <small class="hint">Leave empty for a surprise ✨</small>
+          </div>
+
+          <button type="submit" class="btn">Get outfit 💅</button>
+        </form>
+      </section>
+
+      {% if outfit and (outfit.top or outfit.bottom or outfit.shoes or outfit.outerwear or outfit.accessory) %}
+      <section class="card result-card">
+        <h2>Your outfit ✨</h2>
+        <ul class="outfit-list">
+          {% if outfit.top %}
+          <li><span class="tag">Top</span> {{ outfit.top.name }}</li>
+          {% endif %}
+          {% if outfit.bottom %}
+          <li><span class="tag">Bottom</span> {{ outfit.bottom.name }}</li>
+          {% endif %}
+          {% if outfit.outerwear %}
+          <li><span class="tag">Outerwear</span> {{ outfit.outerwear.name }}</li>
+          {% endif %}
+          {% if outfit.shoes %}
+          <li><span class="tag">Shoes</span> {{ outfit.shoes.name }}</li>
+          {% endif %}
+          {% if outfit.accessory %}
+          <li><span class="tag">Accessory</span> {{ outfit.accessory.name }}</li>
+          {% endif %}
+        </ul>
+        <p class="slay-text">Go slay, bestie 💘</p>
+      </section>
+      {% endif %}
+    </main>
+
+    <footer class="footer">
+      <p>Built with Python, Flask & outfit chaos 💄</p>
+    </footer>
+  </div>
+</body>
+</html>
