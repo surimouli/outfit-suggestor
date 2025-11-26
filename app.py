@@ -4,7 +4,7 @@ import random
 app = Flask(__name__)
 
 # -----------------------------
-# Simple "virtual closet" data
+# Virtual closet data
 # -----------------------------
 WARDROBE = [
     # Tops
@@ -41,13 +41,12 @@ WARDROBE = [
 ]
 
 
-def filter_items(item_type, occasion, weather, color):
-    """Filter wardrobe items by type, occasion, weather, and optional color."""
+def filter_items(item_type: str, occasion: str, weather: str, color: str | None):
+    """Return wardrobe items matching the filters."""
     matches = []
     for item in WARDROBE:
         if item["type"] != item_type:
             continue
-
         if occasion not in item["occasions"]:
             continue
 
@@ -57,35 +56,33 @@ def filter_items(item_type, occasion, weather, color):
                 continue
             if weather == "warm" and warmth not in ["warm", "mild", "any"]:
                 continue
-            # for "mild" we’re pretty chill and accept almost anything
 
         if color is not None and color not in item["colors"]:
             continue
 
         matches.append(item)
-
     return matches
 
 
-def pick_item(item_type, occasion, weather, color):
-    """Pick one item, relaxing filters if needed."""
-    # 1. strict
+def pick_item(item_type: str, occasion: str, weather: str, color: str | None):
+    """Pick a single item, relaxing filters if needed."""
+    # strict
     items = filter_items(item_type, occasion, weather, color)
     if items:
         return random.choice(items)
 
-    # 2. no color preference
+    # ignore color
     if color is not None:
         items = filter_items(item_type, occasion, weather, None)
         if items:
             return random.choice(items)
 
-    # 3. ignore weather, keep occasion
+    # ignore weather
     items = [i for i in WARDROBE if i["type"] == item_type and occasion in i["occasions"]]
     if items:
         return random.choice(items)
 
-    # 4. anything of that type
+    # any item of that type
     items = [i for i in WARDROBE if i["type"] == item_type]
     if items:
         return random.choice(items)
@@ -116,10 +113,7 @@ def index():
         bottom = pick_item("bottom", occasion, weather, color)
         shoes = pick_item("shoes", occasion, weather, color)
 
-        outerwear = None
-        if weather in ["cold", "mild"]:
-            outerwear = pick_item("outerwear", occasion, weather, color)
-
+        outerwear = pick_item("outerwear", occasion, weather, color) if weather in ["cold", "mild"] else None
         accessory = pick_item("accessory", occasion, weather, color)
 
         outfit = {

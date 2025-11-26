@@ -8,13 +8,13 @@
 <body>
   <div class="page">
     <header class="header">
-      <h1>Outfit Suggestor 💖</h1>
-      <p>Tell me the vibe and I’ll pick your outfit.</p>
+      <h1>Outfit Suggestor</h1>
+      <p>Set the vibe and get a full outfit in one click.</p>
     </header>
 
     <main class="content">
       <section class="card">
-        <h2>Set your vibe</h2>
+        <h2>Choose your settings</h2>
         <form method="POST" class="form">
           <!-- Occasion -->
           <div class="form-group">
@@ -22,22 +22,22 @@
             <div class="options">
               <label>
                 <input type="radio" name="occasion" value="casual"
-                  {% if form.occasion == 'casual' %}checked{% endif %}>
+                       {% if form.occasion == 'casual' %}checked{% endif %}>
                 Casual
               </label>
               <label>
                 <input type="radio" name="occasion" value="work"
-                  {% if form.occasion == 'work' %}checked{% endif %}>
+                       {% if form.occasion == 'work' %}checked{% endif %}>
                 Work / Class
               </label>
               <label>
                 <input type="radio" name="occasion" value="party"
-                  {% if form.occasion == 'party' %}checked{% endif %}>
+                       {% if form.occasion == 'party' %}checked{% endif %}>
                 Party / Night out
               </label>
               <label>
                 <input type="radio" name="occasion" value="home"
-                  {% if form.occasion == 'home' %}checked{% endif %}>
+                       {% if form.occasion == 'home' %}checked{% endif %}>
                 Staying home
               </label>
             </div>
@@ -49,25 +49,25 @@
             <div class="options">
               <label>
                 <input type="radio" name="weather" value="cold"
-                  {% if form.weather == 'cold' %}checked{% endif %}>
-                Cold 🥶
+                       {% if form.weather == 'cold' %}checked{% endif %}>
+                Cold
               </label>
               <label>
                 <input type="radio" name="weather" value="mild"
-                  {% if form.weather == 'mild' %}checked{% endif %}>
-                Mild 🌤
+                       {% if form.weather == 'mild' %}checked{% endif %}>
+                Mild
               </label>
               <label>
                 <input type="radio" name="weather" value="warm"
-                  {% if form.weather == 'warm' %}checked{% endif %}>
-                Warm / Hot ☀️
+                       {% if form.weather == 'warm' %}checked{% endif %}>
+                Warm / Hot
               </label>
             </div>
           </div>
 
           <!-- Color -->
           <div class="form-group">
-            <label for="color" class="label">Color vibe (optional)</label>
+            <label for="color" class="label">Color preference (optional)</label>
             <input
               type="text"
               id="color"
@@ -75,16 +75,16 @@
               placeholder="pink, black, beige..."
               value="{{ form.color }}"
             />
-            <small class="hint">Leave empty for a surprise ✨</small>
+            <small class="hint">Leave empty for no color filter.</small>
           </div>
 
-          <button type="submit" class="btn">Get outfit 💅</button>
+          <button type="submit" class="btn">Suggest outfit</button>
         </form>
       </section>
 
       {% if outfit and (outfit.top or outfit.bottom or outfit.shoes or outfit.outerwear or outfit.accessory) %}
       <section class="card result-card">
-        <h2>Your outfit ✨</h2>
+        <h2>Suggested outfit</h2>
         <ul class="outfit-list">
           {% if outfit.top %}
           <li><span class="tag">Top</span> {{ outfit.top.name }}</li>
@@ -102,13 +102,12 @@
           <li><span class="tag">Accessory</span> {{ outfit.accessory.name }}</li>
           {% endif %}
         </ul>
-        <p class="slay-text">Go slay, bestie 💘</p>
       </section>
       {% endif %}
     </main>
 
     <footer class="footer">
-      <p>Built with Python, Flask & outfit chaos 💄</p>
+      <p>Built with Python & Flask</p>
     </footer>
   </div>
 </body>
