@@ -2,112 +2,199 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Outfit Suggestor</title>
+  <title>Outfit Studio</title>
+
+  <!-- Fonts for the vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="page">
-    <header class="header">
-      <h1>Outfit Suggestor</h1>
-      <p>Set the vibe and get a full outfit in one click.</p>
+    <!-- Brand row -->
+    <header class="brand-row">
+      <div class="brand-mark"></div>
+      <span class="brand-name">OUTFIT STUDIO</span>
     </header>
 
-    <main class="content">
-      <section class="card">
-        <h2>Choose your settings</h2>
+    <!-- Main blurred panel -->
+    <main class="panel">
+      <!-- LEFT SIDE -->
+      <section class="panel-left">
+        <div class="headline">
+          <h1>Dress the mood.</h1>
+          <p>Set your vibe. The studio sketches today’s outfit.</p>
+        </div>
+
         <form method="POST" class="form">
-          <!-- Occasion -->
-          <div class="form-group">
-            <label class="label">Occasion</label>
-            <div class="options">
-              <label>
+          <div class="options-row">
+            <!-- Occasion column -->
+            <div class="option-column">
+              <h2 class="option-title">Occasion</h2>
+
+              <label class="option-item">
                 <input type="radio" name="occasion" value="casual"
                        {% if form.occasion == 'casual' %}checked{% endif %}>
-                Casual
+                <span>Casual</span>
               </label>
-              <label>
+
+              <label class="option-item">
                 <input type="radio" name="occasion" value="work"
                        {% if form.occasion == 'work' %}checked{% endif %}>
-                Work / Class
+                <span>Work / Class</span>
               </label>
-              <label>
-                <input type="radio" name="occasion" value="party"
-                       {% if form.occasion == 'party' %}checked{% endif %}>
-                Party / Night out
+
+              <label class="option-item">
+                <input type="radio" name="occasion" value="night_out"
+                       {% if form.occasion == 'night_out' %}checked{% endif %}>
+                <span>Night Out</span>
               </label>
-              <label>
-                <input type="radio" name="occasion" value="home"
-                       {% if form.occasion == 'home' %}checked{% endif %}>
-                Staying home
+
+              <label class="option-item">
+                <input type="radio" name="occasion" value="coffee"
+                       {% if form.occasion == 'coffee' %}checked{% endif %}>
+                <span>Coffee Date</span>
+              </label>
+
+              <label class="option-item">
+                <input type="radio" name="occasion" value="brunch"
+                       {% if form.occasion == 'brunch' %}checked{% endif %}>
+                <span>Brunch</span>
+              </label>
+
+              <label class="option-item">
+                <input type="radio" name="occasion" value="gym"
+                       {% if form.occasion == 'gym' %}checked{% endif %}>
+                <span>Gym</span>
               </label>
             </div>
-          </div>
 
-          <!-- Weather -->
-          <div class="form-group">
-            <label class="label">Weather</label>
-            <div class="options">
-              <label>
+            <!-- Weather column (with color focus under it) -->
+            <div class="option-column">
+              <h2 class="option-title">Weather</h2>
+
+              <label class="option-item">
                 <input type="radio" name="weather" value="cold"
                        {% if form.weather == 'cold' %}checked{% endif %}>
-                Cold
+                <span>Cold</span>
               </label>
-              <label>
+
+              <label class="option-item">
                 <input type="radio" name="weather" value="mild"
                        {% if form.weather == 'mild' %}checked{% endif %}>
-                Mild
+                <span>Mild</span>
               </label>
-              <label>
+
+              <label class="option-item">
                 <input type="radio" name="weather" value="warm"
                        {% if form.weather == 'warm' %}checked{% endif %}>
-                Warm / Hot
+                <span>Warm</span>
               </label>
+
+              <!-- COLOR FOCUS lives here under Weather -->
+              <div class="color-focus">
+                <label for="color" class="color-label">Color focus</label>
+                <input
+                  type="text"
+                  id="color"
+                  name="color"
+                  placeholder="pink, black, beige…"
+                  value="{{ form.color }}"
+                />
+                <small class="color-hint">
+                  Leave blank to let the studio pick any color.
+                </small>
+              </div>
             </div>
           </div>
 
-          <!-- Color -->
-          <div class="form-group">
-            <label for="color" class="label">Color preference (optional)</label>
-            <input
-              type="text"
-              id="color"
-              name="color"
-              placeholder="pink, black, beige..."
-              value="{{ form.color }}"
-            />
-            <small class="hint">Leave empty for no color filter.</small>
+          <!-- Button centered below both columns -->
+          <div class="button-row">
+            <button type="submit" class="btn-primary">Suggest outfit</button>
           </div>
-
-          <button type="submit" class="btn">Suggest outfit</button>
         </form>
       </section>
 
-      {% if outfit and (outfit.top or outfit.bottom or outfit.shoes or outfit.outerwear or outfit.accessory) %}
-      <section class="card result-card">
-        <h2>Suggested outfit</h2>
-        <ul class="outfit-list">
-          {% if outfit.top %}
-          <li><span class="tag">Top</span> {{ outfit.top.name }}</li>
-          {% endif %}
-          {% if outfit.bottom %}
-          <li><span class="tag">Bottom</span> {{ outfit.bottom.name }}</li>
-          {% endif %}
-          {% if outfit.outerwear %}
-          <li><span class="tag">Outerwear</span> {{ outfit.outerwear.name }}</li>
-          {% endif %}
-          {% if outfit.shoes %}
-          <li><span class="tag">Shoes</span> {{ outfit.shoes.name }}</li>
-          {% endif %}
-          {% if outfit.accessory %}
-          <li><span class="tag">Accessory</span> {{ outfit.accessory.name }}</li>
-          {% endif %}
-        </ul>
+      <!-- VERTICAL DIVIDER -->
+      <div class="divider"></div>
+
+      <!-- RIGHT SIDE -->
+      <section class="panel-right">
+        <h2 class="sketch-title">Today’s sketch</h2>
+
+        {% set has_outfit =
+             outfit.get('top') or outfit.get('bottom') or outfit.get('outerwear')
+             or outfit.get('shoes') or outfit.get('accessory') %}
+
+        {% if has_outfit %}
+          <dl class="sketch-list">
+            {% if outfit.get('top') %}
+            <div class="sketch-row">
+              <dt>Top</dt>
+              <dd>{{ outfit.top.name }}</dd>
+            </div>
+            {% endif %}
+
+            {% if outfit.get('bottom') %}
+            <div class="sketch-row">
+              <dt>Bottom</dt>
+              <dd>{{ outfit.bottom.name }}</dd>
+            </div>
+            {% endif %}
+
+            {% if outfit.get('outerwear') %}
+            <div class="sketch-row">
+              <dt>Outerwear</dt>
+              <dd>{{ outfit.outerwear.name }}</dd>
+            </div>
+            {% endif %}
+
+            {% if outfit.get('shoes') %}
+            <div class="sketch-row">
+              <dt>Shoes</dt>
+              <dd>{{ outfit.shoes.name }}</dd>
+            </div>
+            {% endif %}
+
+            {% if outfit.get('accessory') %}
+            <div class="sketch-row">
+              <dt>Accessory</dt>
+              <dd>{{ outfit.accessory.name }}</dd>
+            </div>
+            {% endif %}
+          </dl>
+        {% else %}
+          <!-- Default sample text when there is no generated outfit yet -->
+          <dl class="sketch-list">
+            <div class="sketch-row">
+              <dt>Top</dt>
+              <dd>White t-shirt</dd>
+            </div>
+            <div class="sketch-row">
+              <dt>Bottom</dt>
+              <dd>Black jeans</dd>
+            </div>
+            <div class="sketch-row">
+              <dt>Outerwear</dt>
+              <dd>Denim jacket</dd>
+            </div>
+            <div class="sketch-row">
+              <dt>Shoes</dt>
+              <dd>Sneakers</dd>
+            </div>
+            <div class="sketch-row">
+              <dt>Accessory</dt>
+              <dd>Belt</dd>
+            </div>
+          </dl>
+        {% endif %}
       </section>
-      {% endif %}
     </main>
 
     <footer class="footer">
-      <p>Built with Python & Flask</p>
+      <span>Outfit Studio · made with Python &amp; Flask</span>
     </footer>
   </div>
 </body>
