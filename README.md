@@ -1,24 +1,9 @@
-# 👗 Outfit Suggestor (Python CLI)
+Outfit Studio
 
-A tiny, aesthetic **Outfit Suggestor** you can run in your terminal.  
-It picks a top, bottom, shoes, optional outerwear, and an accessory based on:
+Outfit Studio is a small mood-based outfit generator.
+You choose the occasion, the weather, and an optional color focus, and the app creates a full outfit for the day.
 
-- Occasion (casual, work, party, home)
-- Weather (cold, mild, warm)
-- Optional color vibe (like `pink`, `black`, `beige`)
+It builds a look using pieces from a virtual closet, matching items based on your vibe and conditions.
+The results include a top, bottom, outerwear (when needed), shoes, and an accessory, all coordinated by style, weather, and color.
 
-Perfect mini project to show off some Python logic, randomness, and cute branding.
-
----
-
-## ✨ Features
-
-- Simple command-line menu
-- Built-in "virtual closet" with:
-  - tops, bottoms, outerwear, shoes, accessories
-  - colors, occasions, and warmth levels
-- Asks you for:
-  - occasion
-  - weather
-  - optional color preference
-- Suggests a full outfit and lets you view the wardrobe
+The interface is designed to feel soft, artistic, and intentional — blurred glass panel, custom color palette, and a painterly background that makes the app feel like a tiny creative studio.
